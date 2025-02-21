@@ -13,9 +13,7 @@ public class Main {
                 counter.pause();
                 button.setText("Start");
             } else {
-                synchronized (counter) {
-                    counter.resume();
-                }
+                counter.resume();
                 button.setText("Stop");
             }
         });
