@@ -45,19 +45,13 @@ public class CounterThread extends Thread {
         return paused;
     }
 
-    public synchronized void pause() {
+    public void pause() {
         paused = true;
     }
 
     public synchronized void resume() {
         paused = false;
         this.notify();
-    }
-
-    @Override
-    public void interrupt() {
-        super.interrupt();
-        paused = true;
     }
 
     public JLabel getValueLabel() {
