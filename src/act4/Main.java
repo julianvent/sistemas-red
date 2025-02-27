@@ -14,6 +14,8 @@ public class Main {
         bar2.setBounds(20, 100, 400, 30);
         bar3.setBounds(20, 150, 400, 30);
 
+        bar1.setStringPainted(true); bar2.setStringPainted(true); bar3.setStringPainted(true);
+
         JButton button = new JButton("Start race");
         button.setBounds(20, 200, 100, 30);
 

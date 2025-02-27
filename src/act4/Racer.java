@@ -16,7 +16,6 @@ public class Racer extends Thread {
         this.progressBar = progressBar;
         this.places = places;
         this.startButton = startButton;
-        progressBar.setStringPainted(true);
         progressBar.setValue(0);
     }
 
