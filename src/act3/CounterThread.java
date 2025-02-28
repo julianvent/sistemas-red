@@ -49,7 +49,7 @@ public class CounterThread extends Thread {
         paused = true;
     }
 
-    public synchronized void resume() {
+    public synchronized void unpause() {
         paused = false;
         this.notify();
     }

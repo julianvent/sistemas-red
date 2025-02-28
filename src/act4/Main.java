@@ -2,13 +2,14 @@ package act4;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class Main {
     public static void main(String[] args) {
         JProgressBar bar1 = new JProgressBar(0, 1000);
         JProgressBar bar2 = new JProgressBar(0, 1000);
         JProgressBar bar3 = new JProgressBar(0, 1000);
-        ArrayList<Racer> places = new ArrayList<>();
+        Vector<Racer> places = new Vector<>();
 
         bar1.setBounds(20, 50, 400, 30);
         bar2.setBounds(20, 100, 400, 30);

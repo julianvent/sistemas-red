@@ -3,15 +3,16 @@ package act4;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 
 public class Racer extends Thread {
     private final JProgressBar progressBar;
-    private final ArrayList<Racer> places;
+    private final Vector<Racer> places;
     private final JButton startButton;
     private static int position = 0;
-    public static final StringBuilder podium = new StringBuilder();
+    private static final StringBuilder podium = new StringBuilder();
 
-    public Racer(String name, JProgressBar progressBar, ArrayList<Racer> places, JButton startButton) {
+    public Racer(String name, JProgressBar progressBar, Vector<Racer> places, JButton startButton) {
         super(name);
         this.progressBar = progressBar;
         this.places = places;
@@ -23,9 +24,7 @@ public class Racer extends Thread {
     public void run() {
         Random rand = new Random();
 
-        synchronized (places) {
-            places.add(this);
-        }
+        places.add(this);
 
         while (progressBar.getValue() < progressBar.getMaximum()) {
             progressBar.setValue(progressBar.getValue() + rand.nextInt(16) + 10);
@@ -39,9 +38,7 @@ public class Racer extends Thread {
         // System.out.println(this.getName());
         updatePodium(this);
 
-        synchronized (places) {
-            places.remove(this);
-        }
+        places.remove(this);
 
         if (places.isEmpty()) {
             startButton.setEnabled(true);
