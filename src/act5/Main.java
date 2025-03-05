@@ -31,16 +31,15 @@ public class Main {
     static void cycle(long milis, JLabel light) {
         new Thread(() -> {
             String[] colors = {"VERDE", "AMARILLO", "ROJO"};
-            light.setText(colors[0]);
             int i = 0;
 
             while (true) {
+                light.setText(colors[i++ % colors.length]);
                 try {
                     Thread.sleep(milis);
                 } catch (InterruptedException e) {
                     System.out.println("Thread was interrupted");
                 }
-                light.setText(colors[++i % colors.length]);
             }
         }).start();
     }
