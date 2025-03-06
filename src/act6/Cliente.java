@@ -26,9 +26,16 @@ public class Cliente {
     }
 
     public static void main(String[] args) throws IOException {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ie) {
+            System.out.println(ie.getMessage());
+        }
+
+        System.out.print("Enviar mensaje: ");
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         Cliente cliente = new Cliente();
-        cliente.startConnection("0.0.0.0", 8080);
+        cliente.startConnection("localhost", 8080);
         String response = cliente.sendMessage(in.readLine());
         System.out.println(response);
         cliente.stopConnection();
