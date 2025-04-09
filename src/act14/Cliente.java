@@ -31,6 +31,10 @@ public class Cliente {
         frame.setVisible(true);
         frame.setTitle("Cliente");
 
+        new Thread(() -> {
+
+        }).start();
+
         try {
             Registry registry = LocateRegistry.getRegistry(1099);
             ChatInterface chat = (ChatInterface) registry.lookup("chat");
