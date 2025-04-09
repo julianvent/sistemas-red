@@ -1,34 +1,36 @@
 package act14;
 
 import javax.swing.*;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class ServerChat extends UnicastRemoteObject implements ChatInterface {
-    public static Registry registry;
+public class ServerChat {
+    public Registry registry;
     private JTextArea inbox;
     private JTextField msgTextField;
     private JButton sendButton;
     private JFrame frame;
-    private ChatInterface serverChat;
+    private static ChatInterface chat;
 
-    private ServerChat() throws RemoteException {
+    private ServerChat() throws RemoteException, NotBoundException {
+        createRegistry();
         createUI();
+        chat = (ChatInterface) registry.lookup("chat");
     }
 
-    public static void main(String[] args) throws RemoteException {
-        ChatInterface serverChat = createRegistry();
+    public static void main(String[] args) throws RemoteException, NotBoundException {
+        new ServerChat();
     }
 
-    private static ChatInterface createRegistry() {
+    private void createRegistry() {
         try {
             registry = LocateRegistry.createRegistry(1099);
-            ChatInterface chat = new ServerChat();
+            ChatInterface chat = new ChatImplementation();
             registry.rebind("chat", chat);
             System.out.println("Servidor RMI listo :DDDDD");
-            return chat;
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -55,10 +57,15 @@ public class ServerChat extends UnicastRemoteObject implements ChatInterface {
 
         frame.setVisible(true);
         frame.setTitle("Server");
-    }
 
-    @Override
-    public void sendMessage(String message) throws RemoteException {
-        inbox.append(message + "\n");
+        sendButton.addActionListener(e -> {
+           String msg = msgTextField.getText();
+           msgTextField.setText("");
+            try {
+                chat.sendMessage("Server", msg);
+            } catch (RemoteException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
 }

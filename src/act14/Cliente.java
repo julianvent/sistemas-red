@@ -43,7 +43,7 @@ public class Cliente {
                 String msg = msgTextField.getText();
                 msgTextField.setText("");
                 try {
-                    chat.sendMessage(msg);
+                    chat.sendMessage("Cliente", msg);
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
