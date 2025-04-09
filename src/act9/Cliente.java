@@ -29,7 +29,7 @@ public class Cliente {
         frame.setVisible(true);
         frame.setTitle("Cliente");
 
-        ManejadorSocket cliente = new ManejadorSocket(new Socket("148.226.203.244", 777), inMessagesArea);
+        ManejadorSocket cliente = new ManejadorSocket(new Socket("localhost", 777), inMessagesArea);
         cliente.start();
         button.addActionListener(e -> {
             String mensaje = msgTextField.getText();

@@ -9,7 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class ServerChat {
     public Registry registry;
-    private JTextArea inbox;
+    private static JTextArea inbox;
     private JTextField msgTextField;
     private JButton sendButton;
     private JFrame frame;
@@ -23,6 +23,19 @@ public class ServerChat {
 
     public static void main(String[] args) throws RemoteException, NotBoundException {
         new ServerChat();
+
+        new Thread(() -> {
+            while (true) {
+                try {
+                    String msg = chat.receiveMessage("Server");
+                    if (msg != null && !msg.isEmpty()) {
+                        inbox.append("Cliente: " + msg + '\n');
+                    }
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
     }
 
     private void createRegistry() {
@@ -62,7 +75,7 @@ public class ServerChat {
            String msg = msgTextField.getText();
            msgTextField.setText("");
             try {
-                chat.sendMessage("Server", msg);
+                chat.sendMessage("Client", msg);
             } catch (RemoteException ex) {
                 throw new RuntimeException(ex);
             }
