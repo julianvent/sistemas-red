@@ -8,7 +8,6 @@ import java.rmi.registry.Registry;
 
 public class Client {
     final DirectoryInterface directory;
-    private JTextField nameField;
     private DefaultListModel<String> listModel;
 
 
@@ -33,7 +32,7 @@ public class Client {
         frame.setSize(550, 550);
         frame.setLayout(null);
 
-        nameField = new JTextField();
+        JTextField nameField = new JTextField();
         nameField.setBounds(10, 0, 400, 30);
 
         JButton sendButton = new JButton("Enviar");
